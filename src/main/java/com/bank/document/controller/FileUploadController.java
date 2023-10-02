@@ -1,6 +1,7 @@
 package com.bank.document.controller;
 
 import com.bank.document.entity.Document;
+import com.bank.document.exception.NotSaveException;
 import com.bank.document.service.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,8 @@ public class FileUploadController {
             fileUploadService.uploadFile(file);
             return "File saved successfully";
         }
-
         catch(Exception e) {
-            return "File not saved";
+            throw new NotSaveException(e.getMessage());
         }
     }
 

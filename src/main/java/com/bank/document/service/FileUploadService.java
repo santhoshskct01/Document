@@ -3,6 +3,7 @@ package com.bank.document.service;
 import com.bank.document.client.ApiClient;
 import com.bank.document.entity.Document;
 import com.bank.document.entity.Post;
+import com.bank.document.exception.NotFoundException;
 import com.bank.document.repository.FileUploadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,13 @@ public class FileUploadService {
         return null;
     }
     public Document getFile(String filename) throws Exception {
+        /*Document doc = Optional.ofNullable(fileUploadRepository.findByName(filename))
+                .orElseThrow(() -> new NotFoundException("File not found for this id :: " + filename))
+                .get();
+*/
         Document doc = fileUploadRepository.findByName(filename)
-                .orElseThrow(() -> new Exception("File not found for this id :: " + filename));;
+                .orElseThrow(() -> new NotFoundException("File not found for this id :: " + filename));
+
         Post post = Optional.ofNullable(doc)
                 .map(d-> apiClient.readPostById(String.valueOf(d.getId())))
                 .orElseThrow();
@@ -50,7 +56,7 @@ public class FileUploadService {
 
     public Boolean deleteFile(String id) throws Exception {
         Document document = fileUploadRepository.findById(id)
-                .orElseThrow(() -> new Exception("File not found for this id :: " + id));
+                .orElseThrow(() -> new NotFoundException("File not found"));
         fileUploadRepository.delete(document);
         return Boolean.TRUE;
     }
