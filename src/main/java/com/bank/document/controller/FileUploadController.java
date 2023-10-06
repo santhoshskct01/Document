@@ -1,31 +1,26 @@
 package com.bank.document.controller;
 
-import com.bank.document.entity.Document;
-import com.bank.document.exception.NotSaveException;
+import com.bank.document.modal.Document;
 import com.bank.document.service.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
+/* File Upload Controller*/
 @RestController
 public class FileUploadController {
 
     @Autowired
     FileUploadService  fileUploadService;
 
+    /* File Upload */
     @PostMapping(value = "/upload", consumes = {"multipart/form-data"})
     public String saveFile(@RequestPart("file") MultipartFile file){
-        try {
             fileUploadService.uploadFile(file);
             return "File saved successfully";
-        }
-        catch(Exception e) {
-            throw new NotSaveException(e.getMessage());
-        }
     }
 
     @GetMapping( "/getall")

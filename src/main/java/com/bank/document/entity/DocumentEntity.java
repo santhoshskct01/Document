@@ -5,12 +5,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Entity
 @Getter
 @Setter
-public class Document {
+public class DocumentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +25,10 @@ public class Document {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
-    private Post post;
-    public Document() {
+    private PostEntity post;
+    public DocumentEntity() {
     }
-    public Document(String name, String type, byte[] data) {
+    public DocumentEntity(String name, String type, byte[] data) {
         this.name = name;
         this.type = type;
         this.data = data;

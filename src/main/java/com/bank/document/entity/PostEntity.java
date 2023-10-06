@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-public class Post {
+public class PostEntity {
 
     @Id
     Integer Id;

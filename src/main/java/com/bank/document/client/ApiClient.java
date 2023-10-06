@@ -1,5 +1,5 @@
 package com.bank.document.client;
-import com.bank.document.entity.Post;
+import com.bank.document.modal.Post;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
